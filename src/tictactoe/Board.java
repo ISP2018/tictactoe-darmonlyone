@@ -7,22 +7,22 @@ import javafx.scene.paint.Color;
 /**
  * A TicTacToe board.
  * This class provides a view of the board.
+ * @author Manusporn Fukkham
  */
 public class Board extends GridPane  {
 	/** Size of squares on the board. */
 	public static final int TILESIZE = 100;
 	/** gap between rows and cols. May be zero. */
 	public static final double GAP = 2;
-	/** The actual squares on the board. */
-	private BoardSquare[][] board;
 
-	/**
+    /**
 	 * Create an empty tic tac toe board.
 	 * @return empty board object
 	 */
 	public Board(int rows, int cols) {
 		// is this necessary? We can get the squares directly from GridPane.
-		board = new BoardSquare[rows][cols];
+        /* The actual squares on the board. */
+        BoardSquare[][] board = new BoardSquare[rows][cols];
 		// for tic-tac-toe the squares are all same color
 		Color squareColor = Color.LIGHTGRAY; // nice boring color
 		// draw border around each square

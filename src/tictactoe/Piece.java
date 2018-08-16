@@ -23,13 +23,14 @@ public class Piece extends StackPane {
 	private Text text;
 	/** Type type of the piece.  Its public final for efficiency in checking board state. */
 	public final Player type;
-	
+
+	/**To initialize Piece of player type and font size on piece*/
 	public Piece(Player type, double size) {
 		this.type = type;
 		this.text = new Text(type.text);
 		text.setStroke(Color.BLACK);
 		text.setStrokeWidth(0.04*size); // guess of appropriate thickness
-		text.setFont(new Font(0.85*size)); // smaller than board cell size to avoid expanding the board cell
+		text.setFont(new Font(0.7*size)); // smaller than board cell size to avoid expanding the board cell
 		text.setTextAlignment(TextAlignment.CENTER);
 		super.getChildren().add(text);
 	}
