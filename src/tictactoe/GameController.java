@@ -1,5 +1,6 @@
 package tictactoe;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,13 +48,30 @@ public class GameController {
 	/**To update the status of game*/
 	private void updateGameStatus() {
 		Player winner = game.winner();
-		if (winner != Player.NONE) topLabel.setText("Player "+winner+" wins!");
-		else if (game.isGameOver()) topLabel.setText("Draw. No winner.");
+		if (winner != Player.NONE) {
+			topLabel.setText("Player "+winner+" wins!");
+			alertWinner(winner);
+		}
+		else if (game.isGameOver()) {
+			topLabel.setText("Draw. No winner.");
+			alertWinner(winner);
+		}
 		else topLabel.setText("Next Player: " + game.getNextPlayer());
 
 	}
 
-	
+	/**To alert winner player*/
+	private void alertWinner(Player winner) {
+		String player = winner.text;
+		if (winner == Player.NONE) player = "No one";
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Game was end");
+		alert.setHeaderText(player+" wins the game");
+		alert.setContentText("Star the new game");
+		alert.showAndWait();
+		game.startNewGame();
+	}
+
 	/** Event handler for mouse clicks on game board. */
 	public void handleCellClicked(MouseEvent event) {
 		Object source = event.getSource();
