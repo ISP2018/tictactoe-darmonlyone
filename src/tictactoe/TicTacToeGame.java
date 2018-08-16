@@ -1,40 +1,43 @@
 package tictactoe;
 
 import java.util.function.Predicate;
-
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 
-
+/**
+ *
+ * @author Manusporn Fukkham
+ */
 public class TicTacToeGame {
-	private final int boardsize;
+	private final int boardSize;
 	/** View of the TicTacToe board. */
 	private Board board;
 	/** Pieces on the board. */
 	private Piece[][] pieces;
 	/** Flag for game over. An observable object. */
 	private SimpleBooleanProperty gameOver;
-	
+	/** Player of playing the game*/
 	private Player nextPlayer = Player.X;
-	
+
+	/** To initialize the TicTacToe game amount of board size*/
 	public TicTacToeGame(int size) {
-		this.boardsize = size;
-		board = new Board(boardsize,boardsize);   // view of the gameboard
-		pieces = new Piece[boardsize][boardsize]; // stores info about pieces on board
+		this.boardSize = size;
+		board = new Board(boardSize, boardSize);   // view of the gameboard
+		pieces = new Piece[boardSize][boardSize]; // stores info about pieces on board
 		gameOver = new SimpleBooleanProperty(false);
 		startNewGame();
 	}
-	
+    /**@return TicTacToe board. */
 	public Board getBoard() {
 		return board;
 	}
-	
+
+	/**Start TicTacToe new game*/
 	public void startNewGame() {
 		// Avoid nulls. Assign a "none" object to each location on the board.
-		for(int row=0; row<3; row++) 
-			for(int col=0; col<3; col++) pieces[row][col] = Piece.NONE;
+		for(int row = 0; row< boardSize; row++)
+			for(int col = 0; col< boardSize; col++) pieces[row][col] = Piece.NONE;
 		// Remove Pieces from the board (view), but not the squares themselves. Use a Predicate to test for Piece.
 		Predicate<Node> isPiece = (node) -> node instanceof Piece;
 		board.getChildren().removeIf(isPiece);
@@ -45,7 +48,7 @@ public class TicTacToeGame {
 	 * Test whether a player can move to a square.
 	 * @return true if can move to the requested (col,row) on board.
 	 */
-	public boolean canMoveTo(Player player, int col, int row) {
+	public boolean canMoveTo(int col, int row) {
 		if (row<0 || row>pieces.length) return false;
 		if (col<0 || col>pieces[row].length) return false;
 		return pieces[row][col] == null || pieces[row][col] == Piece.NONE;
@@ -61,16 +64,16 @@ public class TicTacToeGame {
 	 * @param col board column to move to
 	 */
 	public void moveTo(Piece piece, int col, int row) {
-		assert canMoveTo(piece.type, col, row): 
+		assert canMoveTo(col, row):
 			String.format("moveTo(%s,%d,%d) is invalid",piece.toString(),row,col);
-		if (! canMoveTo(piece.type, col, row) ) return; // not reached when assertions enabled
+		if (! canMoveTo(col, row) ) return; // not reached when assertions enabled
 		pieces[row][col] = piece;
 		board.add(piece, col, row); // GridPane.add has column param before row param
-		
-		/** next player's turn to move. */
+
+		/* next player's turn to move. */
 		if (piece.type == Player.X) nextPlayer = Player.O;
 		else nextPlayer = Player.X;
-		/** after each move check if board is full */
+		/* after each move check if board is full */
 		if (boardIsFull()) gameOver.set(true);
 		
 	}
@@ -85,10 +88,10 @@ public class TicTacToeGame {
 		
 		// Look for N matching pieces on same row.
 		rowtest:
-		for(int row=0; row<boardsize; row++) {
+		for(int row = 0; row< boardSize; row++) {
 			Player p = pieces[row][0].type;
 			if (p == Player.NONE) continue;
-			for(int col=1; col<boardsize; col++) {
+			for(int col = 1; col< boardSize; col++) {
 				if (pieces[row][col].type != p) continue rowtest;
 			}
 			// all pieces on this row belong to p
@@ -96,10 +99,10 @@ public class TicTacToeGame {
 		}
 		// Look for N matching pieces on same column
 		coltest:
-		for(int col=0; col<boardsize; col++) {
+		for(int col = 0; col< boardSize; col++) {
 			Player p = pieces[0][col].type;
 			if (p == Player.NONE) continue;
-			for(int row=1; row<boardsize; row++) {
+			for(int row = 1; row< boardSize; row++) {
 				if (pieces[row][col].type != p) continue coltest;
 			}
 			return p;
@@ -146,9 +149,9 @@ public class TicTacToeGame {
 	 * @return true if board is full
 	 */
 	public boolean boardIsFull() {
-		/** check if board is full */
-		for(int row=0; row<boardsize; row++) {
-			for(int col=0; col<boardsize; col++) if (pieces[row][col] == Piece.NONE) return false;
+		/* check if board is full */
+		for(int row = 0; row< boardSize; row++) {
+			for(int col = 0; col< boardSize; col++) if (pieces[row][col] == Piece.NONE) return false;
 		}
 		return true;
 	}

@@ -1,6 +1,5 @@
 package tictactoe;
 
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +11,7 @@ import javafx.scene.layout.Pane;
 /**
  * UI controller for the JavaFX interface to tic-tac-toe game.
  * This class handles user input events.
+ * @author Manusporn Fukkham
  */
 public class GameController {
 	@FXML
@@ -20,14 +20,9 @@ public class GameController {
 	private Pane centerPane;
 	@FXML
 	private Button newGameButton;
-	
+	/** TicTacToeGame class of the application*/
 	private TicTacToeGame game;
-	
 
-	public GameController() {
-		// nothing to iniitialize yet.
-	}
-	
 	@FXML
 	public void initialize() {
 		game = new TicTacToeGame(3);
@@ -48,13 +43,14 @@ public class GameController {
 		
 		updateGameStatus();
 	}
-	
+
+	/**To update the status of game*/
 	private void updateGameStatus() {
 		Player winner = game.winner();
 		if (winner != Player.NONE) topLabel.setText("Player "+winner+" wins!");
 		else if (game.isGameOver()) topLabel.setText("Draw. No winner.");
 		else topLabel.setText("Next Player: " + game.getNextPlayer());
-		
+
 	}
 
 	
@@ -66,9 +62,9 @@ public class GameController {
 			int row = cell.getRow();
 			int col = cell.getColumn();
 			double size = cell.getHeight();
-			System.out.printf("Clicked on [%d,%d]\n", row, col);
+			//System.out.printf("Clicked on [%d,%d]\n", row, col);
 			Player player = game.getNextPlayer();
-			if (game.canMoveTo(player, col, row)) {
+			if (game.canMoveTo(col, row)) {
 				game.moveTo(new Piece(player, size), col, row);
 				// The game will add piece to the board
 			}

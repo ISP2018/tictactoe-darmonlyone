@@ -1,11 +1,11 @@
 package tictactoe;
 
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * A single square on the game board.
+ * @author Manusporn Fukkham
  */
 public class BoardSquare extends Rectangle {
 	/** square knows its own row and column. */
@@ -14,7 +14,7 @@ public class BoardSquare extends Rectangle {
 	
 	
 	public BoardSquare(int row, int col, int size){
-		super(100, 100);
+		super(size, size);
         this.row = row;
         this.column = col;
 	}
