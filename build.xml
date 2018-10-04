@@ -10,20 +10,19 @@
 
     <!-- location of src and output (build) directories. -->
     <property name="src.dir" location="src"/>
-    <property name="build.dir" location="build"/>
+    <property name="build.dir" location="bin"/>
     <property name="dist.dir" location="dist"/>
     <property name="test.src.dir" location="test/" />
     <property name="test.build.dir" location="bin/test/" />
     <!-- lib.dir contains JUnit libraries -->
     <property name="lib.dir" value="lib" />
-    <property name="bin.dir" value="bin" />
 
 
     <path id="test.classpath">
         <!-- include all Jars in the lib directory (for JUnit) -->
         <fileset dir="${lib.dir}" includes="*.jar" />
         <!-- always need the build directory on the classpath -->
-        <pathelement location="${bin.dir}" />
+        <pathelement location="${build.dir}" />
     </path>
 
     <!-- The "deps" target is used on Travis CI to install dependencies. -->
@@ -44,12 +43,12 @@
     </target>
 
     <target name="clean" description="Delete build products and build directory">
-        <delete dir="${bin.dir}" />
+        <delete dir="${build.dir}" />
     </target>
 
     <!-- create the build directory for output -->
     <target name="init" description="Create output directories if they don't exist" >
-        <mkdir dir="${bin.dir}" />
+        <mkdir dir="${build.dir}" />
         <mkdir dir="${test.build.dir}" />
     </target>
 
