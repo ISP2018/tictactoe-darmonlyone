@@ -1,4 +1,4 @@
-## Tic-Tac-Toe
+## Tic-Tac-Toe [![Build Status](https://travis-ci.com/darmonlyone/tictactoe.svg?branch=master)](https://travis-ci.com/darmonlyone/tictactoe)
 
 ### Description
 
