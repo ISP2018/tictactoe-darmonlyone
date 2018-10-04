@@ -48,7 +48,7 @@ public class TicTacToeGame {
      * Test whether a player can move to a square.
      * @return true if can move to the requested (col,row) on board.
      */
-    public boolean canMoveTo(int col, int row) {
+    public boolean canMoveTo(Player player,int col, int row) {
         if (row<0 || row>pieces.length) return false;
         if (col<0 || col>pieces[row].length) return false;
 
@@ -66,9 +66,9 @@ public class TicTacToeGame {
      * @param col board column to move to
      */
     public void moveTo(Piece piece, int col, int row) {
-        assert canMoveTo(col, row):
+        assert canMoveTo(piece.type,col, row):
                 String.format("moveTo(%s,%d,%d) is invalid",piece.toString(),row,col);
-        if (! canMoveTo(col, row) ) return; // not reached when assertions enabled
+        if (! canMoveTo(piece.type,col, row) ) return; // not reached when assertions enabled
         pieces[row][col] = piece;
         board.add(piece, col, row); // GridPane.add has column param before row param
 

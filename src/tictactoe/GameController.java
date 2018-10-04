@@ -82,7 +82,7 @@ public class GameController {
 			double size = cell.getHeight();
 			//System.out.printf("Clicked on [%d,%d]\n", row, col);
 			Player player = game.getNextPlayer();
-			if (game.canMoveTo(col, row)) {
+			if (game.canMoveTo(player,col, row)) {
 				game.moveTo(new Piece(player, size), col, row);
 				// The game will add piece to the board
 			}
