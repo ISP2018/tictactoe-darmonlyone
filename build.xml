@@ -18,9 +18,6 @@
     <property name="lib.dir" value="lib" />
     <property name="bin.dir" value="bin" />
 
-    <!-- TODO Replace constants "src", "bin", "bin/test", "test", "lib", "."
-              in the following rules with the properties named above
-     -->
 
     <path id="test.classpath">
         <!-- include all Jars in the lib directory (for JUnit) -->
@@ -58,7 +55,7 @@
 
     <!-- compile the source code -->
     <target name="compile" depends="init" description="Compile source code" >
-        <javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
         <copy todir="${build.dir}">
             <fileset dir="${src.dir}">
                 <include name="**/*.fxml" />
@@ -90,8 +87,8 @@
 
     <target name="jar" depends="compile"
             description="Create runnable JAR file of project">
-        <jar destfile="dist.tictactoe_3X3.tictactoe3X3.jar"
-             basedir="base dir containing all the stuff to put in jar file">
+        <jar destfile="tictactoe.jar"
+             basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="tictactoe.Main"/>
             </manifest>
